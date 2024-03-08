@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hacker Puzzle Game</title>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+}
+
+.container {
+    width: 500px;
+    margin: auto;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+#answer{
+    direction: rtl;
+}
+#question {
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+
+</style>
+<body>
+    <div class="container">
+        <h1>ברוכים הבאים להאקר פאזל</h1>
+        <p>ענו על השאלות בכדי לעבור לשאלה הבאה. יש לכם 10 שאלות</p>
+        <p id="question" dir="rtl">איזו עיר היא בירת גרמניה?</p>
+        <input type="text" id="answer" placeholder="התשובה">
+        <button onclick="checkAnswer()">שלחו</button>
+        <p id="error-message"></p>
+    </div>
+    <script>
+        var questions = [
+    "איזו עיר היא בירת גרמניה?",
+    "מי זכה בתואר אלופת העולם בכדורגל בשנת 1998?",
+    "מהו היצור החי הגדול ביותר בעולם (2 מילים)?",
+    "מי המציא את הטלפון (3 מילים)?",
+    "באיזו שנה נחת האדם לראשונה על הירח?",
+    "באיזו עיר מצוי המגדל הנטוי של פיזה?",
+    "איזו חברה פיתחה את מערכת ההפעלה אנדרואיד?",
+    "באיזו שנה הושק האייפון הראשון?",
+    "מהו מספר החולצה של הכדורגלן ערן זהבי?",
+    "מי העיר הגדולה ביותר בעולם לפי כמות אנשים?"
+];
+
+var answers = ["ברלין", "צרפת", "לויתן כחול", "אלכסנדר גרהם בל", "1969", "פיזה", "גוגל", "2007", "7", "טוקיו"]; // דוגמאות לתשובות, יש לעדכן לפי התשובה המדויקת
+
+
+var currentLevel = 0;
+
+function checkAnswer() {
+            var userAnswer = document.getElementById('answer').value;
+            var errorMessage = document.getElementById('error-message');
+            if(userAnswer === answers[currentLevel]) {
+                currentLevel++;
+                errorMessage.textContent = ''; // Clear error message
+                errorMessage.className = ''; // Clear error class
+                if(currentLevel < questions.length) {
+                    document.getElementById('question').textContent = 'שאלה ' + (currentLevel + 1) + ': ' + questions[currentLevel];
+                    document.getElementById('answer').value = '';
+                } else {
+                    document.getElementById('question').textContent = "כל הכבוד! הצלחתם במשימה, הקוד הוא קופיקו";
+                    document.getElementById('answer').style.display = 'none';
+                }
+            } else {
+                errorMessage.textContent = 'טעות, נסו שנית';
+                errorMessage.className = 'error';
+            }
+        }
+    </script>
+</body>
+</html>
